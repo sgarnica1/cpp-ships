@@ -1,10 +1,10 @@
 ![Tec de Monterrey](images/logotecmty.png)
-# Proyecto Integrador: Simulación de un sistema de comunicación celular.
+# Situación problema: Simulación de un sistema de un sistema de gestión portuaria
 
 ## <span style="color: rgb(26, 99, 169);">¿Qué tengo que hacer?</span>
 En este repositorio encontrarás una serie de carpetas y archivos que necesitarás para el desarrollo del proyecto.
-* *test_cases*: En este directorio encontrarás los archivos de entrada (*input0.txt*, *input1.txt*, *input2.txt*, *input3.txt*, *input4.txt*, *input5.txt*, *input6.txt*) que utilizaremos para probar el sistema completo. Adicionalmente están las salida esperadas para cada uno de los archivos de entrada (*output0.txt*, *output1.txt*, *output2.txt*, *output3.txt*, *output4.txt*, *output5.txt*, *output6.txt*).
-* *unit_testing*: En este directorio se encuentran los archivos de pruebas de unidad para cada una de las clases que tienes que desarrollar. Estos archivos de prueba te permiten verificar si tu implementación es correcta.
+* *test_cases*: En este directorio encontrarás los archivos de entrada (*input0.txt*, *input1.txt*, *input2.txt*, *input3.txt*, *input4.txt*) que utilizaremos para probar el sistema completo. Adicionalmente están las salida esperadas para cada uno de los archivos de entrada (*output0.txt*, *output1.txt*, *output2.txt*, *output3.txt*, *output4.txt*).
+* *unit_test*: En este directorio se encuentran los archivos de pruebas de unidad para cada una de las clases que tienes que desarrollar. Estos archivos de prueba te permiten verificar si tu implementación es correcta.
 * *archivos cabecera (o header)*: Archivos en los que se realiza la implementación de cada clase.
 * *main.cpp*: Archivo que contiene la función *main*. En este archivo se realiza la lectura/escritura de archivos.
 
@@ -19,23 +19,26 @@ En estos archivos deberás desarrollar la implementación de cada una de las cla
 ```
 
 ## <span style="color: rgb(26, 99, 169);">Introducción</span>
-Cómo, de seguro, ya habrás oído, vivimos en un mundo donde las revoluciones tecnológicas ocurren todos los días. Una de las revoluciones más importantes fue, sin lugar a dudas, los sistemas de comunicación celular. En este proyecto, vamos a implementar una versión simple de un sistema de comunicación celular.
+En este proyecto, debes implementar una simulación de un sistema de gestión portuaria. El objetivo principal es analizar las solicitudes proporcionadas en el archivo de entrada y llevar a cabo las acciones necesarias.
 
-En este sistema existen *clientes*, *operadores* y *facturas* que pertenecen a un cliente determinado. Los clientes pueden hablar entre ellos, enviarse mensajes o conectarse a Internet a través de sus dispositivos móviles. Los operadores tienen costos únicos para todas estas acciones. Cada cliente tendrá una única factura que almacena y realiza las operaciones necesarias sobre sus gastos.
+Hay *puertos*, y los *barcos* que navegan entre ellos. Los buques transportan los siguientes tipos de contenedores: *ligeros*, *pesados*, *refrigerados* y *líquidos*, cada uno de ellos debe manejarse de manera diferente. Los contenedores en un puerto se pueden cargar en los barcos y, a la inversa, se pueden descargar de un barco a un puerto. Los barcos necesitan una cierta cantidad de combustible para navegar de un puerto a otro.
 
-Tu solución tomará la entrada de un archivo de texto, realizará las operaciones e imprimirá la información necesario en un archivo de texto de salida. El nombre de ambos archivos, los tomará como argumento del programa. En otras palabras, **no habrá ninguna entrada dada con el teclado mientras se ejecuta el programa**.
+Ten en cuenta que no hay ninguna interacción con el usuario durante la ejecución. Tu solución tomará la entrada de un archivo de texto, realizará las operaciones e imprimirá la información necesario en un archivo de texto de salida. El nombre de ambos archivos, los tomará como argumento del programa. En otras palabras, **no habrá ninguna entrada dada con el teclado mientras se ejecuta el programa**.
 
 Ten en cuenta que habrá varias clases. Por lo tanto, deberás trabajarás con varios archivos cabecera (o header). Los nombres de las variables de instancia y métodos se proporcionarán en este documento, así como en el encabezado de la clase que se encuentra en cada archivo cabecera. Aunque esto no significa que no puedas agregar métodos o campos adicionales.
 
 ### <span style="color: rgb(26, 99, 169);">**Clases**</span>
 Existen 5 clases interactuando entre sí en este proyecto:
-* Customer (cliente).
-* Operator (operador).
-* VoxOperator (derivado de Operator).
-* InternetOperator (derivado de Operator).
-* Bill (cuenta).
+* Container.
+* LightContainer (derivado de Container)
+* HeavyContainer (derivado de Container)
+* RefrigeratedContainer (derivado de HeavyContainer)
+* LiquidContainer (derivado de HeavyContainer)
+* SimpleShip.
+* Port.
+* Ship.
 
-Ten en cuenta que será necesario hacer los cálculos necesarios mediante el uso de los métodos correspondiente en la clase *Customer*, *Operator* (o derivados) o *Bill*, no en el programa principal.
+Ten en cuenta que será necesario hacer los cálculos necesarios mediante el uso de los métodos correspondiente en las clases *Port*, *Container* (o derivados) o *Ship*, no en el programa principal.
 
 #### <span style="color: rgb(26, 99, 169);">**Bill**</span>
 La clase *Bill* cuenta con las siguientes variables de estado:
