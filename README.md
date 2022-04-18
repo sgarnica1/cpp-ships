@@ -21,7 +21,7 @@ En estos archivos deberás desarrollar la implementación de cada una de las cla
 ## <span style="color: rgb(26, 99, 169);">Introducción</span>
 En este proyecto, debes implementar una simulación de un sistema de gestión portuaria. El objetivo principal es analizar las solicitudes proporcionadas en el archivo de entrada y llevar a cabo las acciones necesarias.
 
-Hay *puertos*, y los *barcos* que navegan entre ellos. Los buques transportan los siguientes tipos de contenedores: *ligeros*, *pesados*, *refrigerados* y *líquidos*, cada uno de ellos debe manejarse de manera diferente. Los contenedores en un puerto se pueden cargar en los barcos y, a la inversa, se pueden descargar de un barco a un puerto. Los barcos necesitan una cierta cantidad de combustible para navegar de un puerto a otro.
+Hay *puertos*, y los *barcos* que navegan entre ellos. Los buques transportan los siguientes tipos de contenedores: *ligeros*, *pesados*, *refigerados* y *líquidos*, cada uno de ellos debe manejarse de manera diferente. Los contenedores en un puerto se pueden cargar en los barcos y, a la inversa, se pueden descargar de un barco a un puerto. Los barcos necesitan una cierta cantidad de combustible para navegar de un puerto a otro.
 
 Ten en cuenta que no hay ninguna interacción con el usuario durante la ejecución. Tu solución tomará la entrada de un archivo de texto, realizará las operaciones e imprimirá la información necesario en un archivo de texto de salida. El nombre de ambos archivos, los tomará como argumento del programa. En otras palabras, **no habrá ninguna entrada dada con el teclado mientras se ejecuta el programa**.
 
@@ -29,94 +29,98 @@ Ten en cuenta que habrá varias clases. Por lo tanto, deberás trabajarás con v
 
 ### <span style="color: rgb(26, 99, 169);">**Clases**</span>
 Existen 5 clases interactuando entre sí en este proyecto:
-* Container.
-* LightContainer (derivado de Container)
-* HeavyContainer (derivado de Container)
-* RefrigeratedContainer (derivado de HeavyContainer)
-* LiquidContainer (derivado de HeavyContainer)
-* SimpleShip.
-* Port.
-* Ship.
+* `Container`.
+* `LightContainer` (derivado de Container)
+* `HeavyContainer` (derivado de Container)
+* `RefrigeratedContainer` (derivado de HeavyContainer)
+* `LiquidContainer` (derivado de HeavyContainer)
+* `SimpleShip`.
+* `Port`.
+* `Ship`.
 
-Ten en cuenta que será necesario hacer los cálculos necesarios mediante el uso de los métodos correspondiente en las clases *Port*, *Container* (o derivados) o *Ship*, no en el programa principal.
+Ten en cuenta que será necesario hacer los cálculos necesarios mediante el uso de los métodos correspondiente en las clases `Port`, `Container` (o derivados) o `Ship`, no en el programa principal.
 
-#### <span style="color: rgb(26, 99, 169);">**Bill**</span>
-La clase *Bill* cuenta con las siguientes variables de estado:
-* *limitAmount* : Límite de crédito.
-* *currentDebt* : Deuda actual.
-* *totalMoneySpent* : Dinero total que el cliente ha pagado a lo largo del tiempo.
+#### <span style="color: rgb(26, 99, 169);">**Container**</span>
+La clase `Container` cuenta con las siguientes variables de estado:
+* `id`: Identificador del contenedor.
+* `weight`: Peso del contenedor.
+* `type`: Tipo de contenedor (ligero, pesado, rerigerado, líquido).
 
 La clase cuenta con los siguientes métodos:
-* Constructor con un parámetro (el límite de crédito). Este método deberá inicializar el resto de variables a 0.
+* Constructor con tres parámetro (identificador, peso y tipo del contenedor).
 * Constructor de copia.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
-* *add(double amount)*: Agrega cargos a la factura. Si la cantidad es menor o igual 0, no deberá hacer cambios.
-* *pay(double amount)*: Reduce la deuda en la cantidad dada. Si la cantidad es menor o igual a 0, no deberá hacer cambios. Nunca se podrá pagar más cantidad que la deuda actual.
-* *changeTheLimit(double amount)*: Cambia el límite de crédito, siempre y cuando sea mayor a la deuda actual. Si la cantidad es menor o igual a 0, no deberá hacer cambios.
-* *check*: Regresa verdadero si la cantidad más la deuda actual no existe el límite de crédito.
+* `bool operator==(const Container*)`: Regresa `true`si el id, peso y tipo de contenedor son los mismo.
+* `bool operator==(const Container&)`: Regresa `true`si el id, peso y tipo de contenedor son los mismo.
+* `bool operator<(const Container*)`: Si ambos contenedores son de mismo tipo, regresa `true`si el identificador de nuestro contenedor es menor. Si los tipos son diferentes, regresa `true`si el tipo de nuestro contenedor es menor.
+* `bool operator<(const Container&)`: Si ambos contenedores son de mismo tipo, regresa `true`si el identificador de nuestro contenedor es menor. Si los tipos son diferentes, regresa `true`si el tipo de nuestro contenedor es menor.
+* `virtual double getConsumption() const = 0`: Función abstracta. Se deberá implementar en las clases derivadas.
 
-#### <span style="color: rgb(26, 99, 169);">**Operator**</span>
-Si bien, existen dos tipos de operadores, aquellos que dan un mayor soporte a llamadas y mensajes(*VOX*) y aquellos que dan un mayor soporte al uso de Internet (*INTERNET*), todos comparte características comunes. La clase *Operator* define estas características. Las variables de estado con las que cuenta son:
-* *id* : Identificador único del operador.
-* *discountRate*: Porcentaje de descuento a aplicar.
-* *talkingCharge*: El costo por minuto de llamada.
-* *messageCost*: El costo por envío de mensaje.
-* *networkCharge*: El costo por GB utilizado.
-* *totalSpentTalkingTime*: El tiempo total que se ha empleado en llamadas.
-* *totalMessageSent*: Los mensajes totales que se han enviado.
-* *totalInternetUsage*: El total de GB's utilizados.
-* *type*: Tipo de operador (VOX o INTERNET).
+#### <span style="color: rgb(26, 99, 169);">**Light**</span>
+La clase `Light`, derivada de `Container`, no tiene ninguna variable de instancia propia. Sin embargo, cuenta con los siguientes métodos:
+* Constructor con dos parámetro (identificador, peso). Invoca al consntructor de la clase superior, indicando el tipo de contenedor correcto.
+* Constructor de copia. Invoca al consntructor de la clase superior.
+* Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
+* `double getConsumption() const`: El consumo de combustible por llevar este tipo de contenedor es 2.5 veces el peso del mismo.
+
+#### <span style="color: rgb(26, 99, 169);">**Heavy**</span>
+La clase `Heavy`, derivada de `Container`, no tiene ninguna variable de instancia propia. Sin embargo, cuenta con los siguientes métodos:
+* Constructor con dos parámetro (identificador, peso). Invoca al consntructor de la clase superior, indicando el tipo de contenedor correcto.
+* Constructor de copia. Invoca al consntructor de la clase superior.
+* Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
+* `double getConsumption() const`: El consumo de combustible por llevar este tipo de contenedor es 3 veces el peso del mismo.
+
+#### <span style="color: rgb(26, 99, 169);">**Liquid**</span>
+La clase `Liquid`, derivada de `Heavy`, no tiene ninguna variable de instancia propia. Sin embargo, cuenta con los siguientes métodos:
+* Constructor con dos parámetro (identificador, peso). Invoca al consntructor de la clase superior, indicando el tipo de contenedor correcto.
+* Constructor de copia. Invoca al consntructor de la clase superior.
+* Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
+* `double getConsumption() const`: El consumo de combustible por llevar este tipo de contenedor es 4 veces el peso del mismo.
+
+#### <span style="color: rgb(26, 99, 169);">**Refrigerated**</span>
+La clase `Refrigerated`, derivada de `Heavy`, no tiene ninguna variable de instancia propia. Sin embargo, cuenta con los siguientes métodos:
+* Constructor con dos parámetro (identificador, peso). Invoca al consntructor de la clase superior, indicando el tipo de contenedor correcto.
+* Constructor de copia. Invoca al consntructor de la clase superior.
+* Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
+* `double getConsumption() const`: El consumo de combustible por llevar este tipo de contenedor es 5 veces el peso del mismo.
+
+#### <span style="color: rgb(26, 99, 169);">**SimpleShip**</span>
+La clase `SimpleShip` cuenta con las siguientes variables de estado:
+* `id` : Identificador de la nave.
 
 La clase cuenta con los siguientes métodos:
-* Constructor con 6 parámetros. Recibe el id, el costo por minuto de llamada, el costo por envío de mensaje, el costo por GB, el porcentaje de descuento y el tipo de operador. El resto de las variables debe inicializarse a 0.
+* Constructor con un parámetro (identificador de la nave).
 * Constructor de copia.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
-* *addTalkingTime(int minute)*: Si la cantidad es mayor a 0, agrega la cantidad al tiempo total que se ha empleado en llamadas.
-* *addTotalMessageSent(int quantity)*: Si la cantidad es mayor a 0, agrega la cantidad al total de mensajes enviados.
-* *addTotalInternetUsage(double amount)*: Si la cantidad es mayor a 0, agrega la cantidad a los GB's totales empleados.
-* *toString()*: Regresa un string con el siguiente formato: "Operator #id : totalSpentTalkingTime totalMessageSent addTotalInternetUsage". Todas las cantidades de punto flotantes deben tener una precisión de dos números decimales.
+* `bool operator==(const Container*)`: Regresa `true`si el identificador de ambas naves es el mismo.
+* `bool operator==(const Container&)`: Regresa `true`si el identificador de ambas naves es el mismo.
+* `bool operator<(const Container*)`: Regresa `true`si el identificador de nuestra nave es menor.
+* `bool operator<(const Container&)`: Regresa `true`si el identificador de nuestra nave es menor.
+* `virtual std::string toString() const = 0`: Función abstracta. Se deberá implementar en las clases derivadas.
 
-#### <span style="color: rgb(26, 99, 169);">**VoxOperator**</span>
-Este tipo de operador se especializa en aquellas personas que hacen un uso más intensivo de las llamadas y los mensajes de texto. Deriva de *Operator*.
-
-La clase cuenta con los siguientes métodos:
-* Constructor con 6 parámetros. Recibe el id, el costo por minuto de llamada, el costo por envío de mensaje, el costo por GB, el porcentaje de descuento y el tipo de operador. Debe invocar al constructor de la clase superior.
-* Constructor de copia. Debe invocar al constructor de la clase superior.
-* *calculateTalkingCost(int minute, int age)*: Si la cantidad de minutos o la edad es menor igual a 0, regresará 0. En caso contrario, calcula el costo de la llamada tomando en cuenta el costo por minuto definido. Si la persona es menor a 18 o mayor a 65, le aplica el descuento definido.
-* *double calculateMessageCost(int quantity, int thisOpId, int otherOpId)*: Si la cantidad de mensajes es menor igual a 0, regresará 0. En caso contrario, calcula el costo de enviar los mensajes tomando en cuenta el costo por envío definido. Si los mensajes son enviados al mismo operador, le aplica el descuento definido.
-* *calculateNetworkCost(double amount)*: Si la cantidad de GB es mayor a 0, calcula el costo por GB.
-
-#### <span style="color: rgb(26, 99, 169);">**InternetOperator**</span>
-Este tipo de operador se especializa en aquellas personas que hacen un uso más intensivo de Internet. Deriva de *Operator*.
-
-La clase cuenta con los siguientes métodos:
-* Constructor con 6 parámetros. Recibe el id, el costo por minuto de llamada, el costo por envío de mensaje, el costo por GB, el porcentaje de descuento y el tipo de operador. Debe invocar al constructor de la clase superior.
-* Constructor de copia. Debe invocar al constructor de la clase superior.
-* *calculateTalkingCost(int minute, int age)*: Si la cantidad de minutos o la edad es menor igual a 0, regresará 0. En caso contrario, calcula el costo de la llamada tomando en cuenta el costo por minuto definido. Si la cantidad de minutos es menor a 2, le aplica el descuento definido.
-* *double calculateMessageCost(int quantity, int thisOpId, int otherOpId)*: Si la cantidad de mensajes es menor igual a 0, regresará 0. En caso contrario, calcula el costo de enviar los mensajes tomando en cuenta el costo por envío definido. Si la cantidad de mensajes enviados es menor a 3, le aplica el descuento definido.
-* *calculateNetworkCost(double amount)*: Si la cantidad de GB es menor o igual a cero, regresará 0. Sólo se aplicarán cargos si la cantidad de GB utilizados en total, excede al limite de 1GB.
-
-#### <span style="color: rgb(26, 99, 169);">**Customer**</span>
-La clase *Customer* cuenta con las siguientes variables de estado:
-* *id* : Identificador del cliente.
-* *name*: Nombre del cliente.
-* *age* : Edad del cliente.
-* *totalSpentTalkingTime*: El tiempo total que este cliente ha empleado en llamadas.
-* *totalMessageSent*: Los mensajes totales que este cliente ha enviado.
-* *totalInternetUsage*: El total de GB's utilizados por este cliente.
-* *op*: Apuntador a un objeto de la clase Operator. El operador que da servicio a este cliente.
-* *bill*: Apuntador a un objeto de la clase Bill. La factura del cliente.
+#### <span style="color: rgb(26, 99, 169);">**Ship**</span>
+La clase `Ship`, derivada de `SimpleShip`, cuenta con las siguientes variables de estado propias:
+* `currentWeight`, `totalWeight` : Peso actual y máximo total de los contenedores que puede llevar la nave.
+* `currentNumberOfAllContainers`, `maxNumberOfAllContainers` : cantidad actual y máxima de contenedores que puede llevar la nave.
+* `currentNumberOfHeavyContainers`, `maxNumberOfHeavyContainers` : cantidad actual y máxima de contenedores pesados que puede llevar la nave.
+* `currentNumberOfRefrigeratedContainers`, `maxNumberOfRefrigeratedContainers` : cantidad actual y máxima de contenedores refrigerados que puede llevar la nave.
+* `currentNumberOfLiquidContainers`, `maxNumberOfLiquidContainers` : cantidad actual y máxima de contenedores con líquidos que puede llevar la nave.
+* `fuel` : Cantidad actual de combustible.
+* `fuelConsumptionPerKM`: Consumo de combustible por kilómetro.
+* `currentPort`: Puerto actual en que se encuentra la nave.
+* `containers` : Una lista con los contenedores que lleva la nave actualmente.
 
 La clase cuenta con los siguientes métodos:
-* Constructor con 5 parámetros. Recibe el id, el nombre, la edad, el operador y el límite de crédito. Se debe crear el objeto de la clase *Bill*.
+* Constructor con ocho parámetro (identificador de la nave, puerto actual, peso total que puede llevar, máxima cantidad de contenedores (totales, pesados,refrigrerados y líquidos) que puede llevar la nave y el consumo por kilómetro. Debe invocar al constructor de la clase superior con los parámetros correctos. El resto de las variables de instancia se inicializan a cero.
 * Constructor de copia.
-* Destructor. Debe eliminar la factura. Todos los apuntadores debe ser igualados a nulo.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
-* Método de modificación para la variable *op*.
-* *talk (int minutes, Customer &other)*: Si la cantidad es mayor a 0 y *other* es un cliente diferente, se calcula el costo por los minutos que duró la llamada. Si todavía hay límite de crédito en la factura, deberá agregar el costo a la factura y agrega los minutos empleados tanto en el conteo de los clientes involucrados como del operador de este cliente.
-* *message(int quantity, const Customer &other)*: Si la cantidad es mayor a 0 y *other* es un cliente diferente, se calcula el costo por los mensajes enviados. Si todavía hay límite de crédito en la factura, deberá agregar el costo a la factura y agrega los mensajes enviados en el conteo del cliente y del operador.
-* *connection(double amount)*: Si la cantidad es mayor a 0, se calcula el costo por el uso de Internet. Si todavía hay límite de crédito en la factura, deberá agregar el costo a la factura y agrega los GB utilizados tanto en el conteo del cliente y del operador.
-* *toString()*: Regresa un string con el siguiente formato: "Customer #id : totalMoneySpend currentDebt". Todas las cantidades de punto flotantes deben tener una precisión de dos números decimales.
+* `bool sailTo(Port*)`: El método calcula combustible que se consumiría por ir de un puerto a otro con base al consumo que genera cada uno de los contenedores que lleva la nave en ese momento, la distancia al puerto destino y el consumo por kilómetro de esta nave. Si la cantidad de combustible es menor al combustible actual, resta la cantidad calculada al combustible actual, elmina la nave del puerto actual, agrega la nave al puerto destino, cambia el puerto actual al puerto destino y regresa `true`para indicar que si se pudo realizar el viaje.
+* `void reFuel(double)`: Siempre la cantidad sea positiva, la aumenta al combustible actual.
+* `bool load(Container*)`: Este método deberá revisar varias condiciones. La primera, si el puerto actual no tiene el contenedor o si la cantidad actual de contenedores es mayor o igual a la cantidad máxima de contenedores o si el peso actual m+as el peso del contenedor excede el peso total que puede llevar la nave, no es posible cargar ese contenedor. A continuación, deberá verificar, de acuerdo al tipo de contenedor, que no se exceda de la cantidad máxima permitida de contenedores de un tipo determinado. En cualquier caso anterior, deberá regresar `false`. Si se puede hacer la carga, deberá remover el contenedor del puerto actual, agregar a la lista de contenedor, incrementar el número de contenedores que lleva la nave tanto en lo general, como en lo que respecta a un tipo determinado, regresando `true`para indicar que se realizó la carga del contenedor.
+* `bool contains(Container*)`: Indica si el contenedor se encuentra dentro de la lista de contenedores.
+* `bool remove(Container*)`: Remueve un contenedor determinado de la lista de contenedores.
+* `bool unLoad(Container*)`: Este método, primero, deberá revisar si lleva el contenedor indicado. Si es así, deberá remove el contenedor de la lista de contenedores agregarlo al puerto actual, reducir el número de contenedores que lleva la nave tanto en lo general, como en lo que respecta a un tipo determinado, regresando `true`para indicar que se realizó la descarga del contenedor. Si no, regresa `false`.
+* `std::string toString() const`: Regresa un string con el siguiente formato: "Ship #id : fuel", en seguido "\n\t\tLight Containers: " y la lista de contenedores ligeros, a continuación "\n\t\tHeavy Containers: " y la lista de contenedores pesados; y así para el resto de los contenedores refigerados y líquidos (VER LOS EJEMPLOS DE SALIDA).
 
 #### <span style="color: rgb(26, 99, 169);">**main.cpp**</span>
 En el archivo *main.cpp* se realizarán las operaciones generales de entrada y salida. Leerás de un archivo de entrada las operaciones sobre la simulación, las deberás realizar e imprimirás los resultados en el archivo de salida.
