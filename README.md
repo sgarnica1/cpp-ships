@@ -50,10 +50,10 @@ La clase cuenta con los siguientes métodos:
 * Constructor con tres parámetro (identificador, peso y tipo del contenedor).
 * Constructor de copia.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
-* `bool operator==(const Container *right)`: Regresa `true`si el id, peso y tipo de contenedor son los mismo.
-* `bool operator==(const Container &right)`: Regresa `true`si el id, peso y tipo de contenedor son los mismo.
-* `bool operator<(const Container *right)`: Si ambos contenedores son de mismo tipo, regresa `true`si el identificador de nuestro contenedor es menor. Si los tipos son diferentes, regresa `true`si el tipo de nuestro contenedor es menor.
-* `bool operator<(const Container &right)`: Si ambos contenedores son de mismo tipo, regresa `true`si el identificador de nuestro contenedor es menor. Si los tipos son diferentes, regresa `true`si el tipo de nuestro contenedor es menor.
+* `bool operator==(const Container *right)`: Regresa `true`, si el id, peso y tipo de contenedor son los mismo.
+* `bool operator==(const Container &right)`: Regresa `true`, si el id, peso y tipo de contenedor son los mismo.
+* `bool operator<(const Container *right)`: Si ambos contenedores son de mismo tipo, regresa `true`si el identificador de nuestro contenedor es menor. Si los tipos son diferentes, regresa `true`, si el tipo de nuestro contenedor es menor.
+* `bool operator<(const Container &right)`: Si ambos contenedores son de mismo tipo, regresa `true`si el identificador de nuestro contenedor es menor. Si los tipos son diferentes, regresa `true`, si el tipo de nuestro contenedor es menor.
 * `virtual double getConsumption() const = 0`: Función abstracta. Se deberá implementar en las clases derivadas.
 
 #### <span style="color: rgb(26, 99, 169);">**Light**</span>
@@ -143,27 +143,26 @@ La clase cuenta con los siguientes métodos:
 #### <span style="color: rgb(26, 99, 169);">**main.cpp**</span>
 En el archivo *main.cpp* se realizarán las operaciones generales de entrada y salida. Leerás de un archivo de entrada las operaciones sobre la simulación, las deberás realizar e imprimirás los resultados en el archivo de salida.
 
-Las operaciones se explican de manera más desatallada, más adeelante en este documento. El nombre de los archivos de entrada y salida se darán como argumentos del programa a través de la línea de comandos. Si el archivo de entrada no existe, el programa termina.
+Las operaciones se detallan más adelante. El nombre de los archivos de entrada y salida se darán como argumentos del programa a través de la línea de comandos. Si el archivo de entrada no existe, el programa termina.
 
-Deberás manejar dos vectores, uno para apuntadores a objetos *Customer* y otro para apuntadores a objetos *Operator*.
+Deberás manejar tres vectores, uno para apuntadores a objetos `Container`, otro para apuntadores de objetos `Port` y otro para apuntadores a objetos `Ship`. Adicionalmente, deberás considerar variables que indiquen la cantidad de contenedores, puertos y naves creadas, ya el valor de estas variables se utilizarán como id de los objetos creados. Por lo mismo, deben ser inicializas a 0.
 
 #### <span style="color: rgb(26, 99, 169);">**Entrada**</span>
 Vas a leer el archivo de entrada elemento por elemento.
 
-La primera línea tiene tres números enteros, C, O y N. El número *C* represnta el número de clientes que estarán en la simulación. El segundo número, *O*, indica el número de operadores en la simulación. El tercer número, *N*, representa el número de eventos a simular.
+La primera línea tiene cuatro números enteros, `C`, `S`, `P` y `N`. El número `C` represnta el número de contenedores que estarán en la simulación. El segundo número, `S`, indica el número de naves en la simulación. El tercer número, `P`, indica el número de puertos en la simulación. Y, por último, `N`, representa el número de eventos a simular.
 
-Las siguientes línea *N* serán algunas de las siguientes operaciones:
-1. Creando un nuevo cliente.
-2. Creando un nuevo operador.
-3. Un cliente puede hablar con otro cliente.
-4. Un cliente puede enviar un mensaje a otro cliente.
-5. Un cliente puede conectarse a Internet.
-6. Un cliente puede pagar sus facturas.
-7. Un cliente puede cambiar de operador.
-8. Un cliente puede cambiar su límite de Factura.
+Las siguientes línea `N` serán algunas de las siguientes operaciones:
+1. Crear un contenedor.
+2. Crear una nave.
+3. Crear un puerto.
+4. Cargar un contenedor a una nave.
+5. Descargar un contenedor de una nave.
+6. Un nave viaja del puerto actual a otro.
+7. Una nave carga combustible.
 
 ##### <span style="color: rgb(26, 99, 169);">**1. Creando un nuevo cliente**</span>
-Esta línea contiene un 1 seguido del nombre del cliente, la edad, el identificador del operador y la cantidad límite de crédito del cliente.
+Esta línea contiene un 1 seguido id del puerto en el que está el contenedor, el peso y tipo de contenedor.
 
 ```
 1 <name> <age> <opeatorId> <limitingAmount>
