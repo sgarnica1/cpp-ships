@@ -145,7 +145,7 @@ En el archivo *main.cpp* se realizarán las operaciones generales de entrada y s
 
 Las operaciones se detallan más adelante. El nombre de los archivos de entrada y salida se darán como argumentos del programa a través de la línea de comandos. Si el archivo de entrada no existe, el programa termina.
 
-Deberás manejar tres vectores, uno para apuntadores a objetos `Container`, otro para apuntadores de objetos `Port` y otro para apuntadores a objetos `Ship`. Adicionalmente, deberás considerar variables que indiquen la cantidad de contenedores, puertos y naves creadas, ya el valor de estas variables se utilizarán como id de los objetos creados. Por lo mismo, deben ser inicializas a 0.
+Deberás manejar tres vectores, uno para apuntadores a objetos `Container`, otro para apuntadores de objetos `Port` y otro para apuntadores a objetos `Ship`. **Adicionalmente, deberás considerar variables que indiquen la cantidad de contenedores, puertos y naves creadas, ya el valor de estas variables se utilizarán como id de los objetos creados. Por lo mismo, deben ser inicializas a 0.**
 
 #### <span style="color: rgb(26, 99, 169);">**Entrada**</span>
 Vas a leer el archivo de entrada elemento por elemento.
@@ -153,90 +153,67 @@ Vas a leer el archivo de entrada elemento por elemento.
 La primera línea tiene cuatro números enteros, `C`, `S`, `P` y `N`. El número `C` represnta el número de contenedores que estarán en la simulación. El segundo número, `S`, indica el número de naves en la simulación. El tercer número, `P`, indica el número de puertos en la simulación. Y, por último, `N`, representa el número de eventos a simular.
 
 Las siguientes línea `N` serán algunas de las siguientes operaciones:
-1. Crear un contenedor.
-2. Crear una nave.
-3. Crear un puerto.
+1. Creando un contenedor.
+2. Creando una nave.
+3. Creando un puerto.
 4. Cargar un contenedor a una nave.
 5. Descargar un contenedor de una nave.
 6. Un nave viaja del puerto actual a otro.
 7. Una nave carga combustible.
 
-##### <span style="color: rgb(26, 99, 169);">**1. Creando un nuevo cliente**</span>
-Esta línea contiene un 1 seguido id del puerto en el que está el contenedor, el peso y tipo de contenedor.
+##### <span style="color: rgb(26, 99, 169);">**1. Creando un contenedor**</span>
+Esta línea contiene un 1, seguido id del puerto en el que está el contenedor, el peso y tipo de contenedor.
+```
+1 <idPort> <weight> <type>
+```
+Los tipos válidos son `B`, `R` y `L`. `R` indica que es un contenedor refrigerado, mientras que `L` indica que es un contenedor líquido. Caso espacial es `B`, el tipo de contenedor que se creará dependerá del peso del contenedor. Si es peso es menor o igual a 3000, se crea un contenedor ligero; si es mayo, se crea un contenedor pesado. Toma en cuenta que el identificador del contenedor será el orden de creación. Por ejemplo, el primer contenedor creado debe tener Id 0 y debe colocarse en la posición 0 del vector.
+
+##### <span style="color: rgb(26, 99, 169);">**2. Creando una nave**</span>
+Esta línea contiene un 2, seguido del identificador del puerto en que se encuentra la nave, el peso total que puede llevar la nave, en número máximo de contenedores, de contenedores pesados, refrigerados y líquidos que la nave puede llevar, así como el consumo de combustible por kilómetro.
+```
+2 <idPort> <totalWeight> <maxNumberOfAllContainers> <maxNumberOfHeavyContainers> <maxNumberOfRefrigeratedContainers> <maxNumberOfLiquidContainers> <fuelConsumptionPerKM>
+```
+Toma en cuenta que el identificador de la nave será el orden de creación. Por ejemplo, la primera nave creada debe tener Id 0 y debe colocarse en la posición 0 del vector.
+
+##### <span style="color: rgb(26, 99, 169);">**3. Creando un puerto**</span>
+Esta línea contiene un 3, seguido de la posición `x` y `y` del puerto.
 
 ```
-1 <name> <age> <opeatorId> <limitingAmount>
+3 <x> <y>
 ```
-Toma en cuenta que el identificador del cliente será el orden de creación. Por ejemplo, el primer cliente creado debe tener Id 0 y debe colocarse la posición 0 del vector. Además, no existe ninguna operación para crear un objeto *Bill* (lo debes realizar en el constructor del cliente).
+Toma en cuenta que el identificador de la nave será el orden de creación. Por ejemplo, la primera nave creada debe tener Id 0 y debe colocarse en la posición 0 del vector.
 
-##### <span style="color: rgb(26, 99, 169);">**2. Creando un nuevo operador**</span>
-Esta línea contiene un 2 seguido del cargo por llamada, cargo por mensaje, cargo por uso de internet y el descuento a aplicar.
-
-```
-2 <talkingCharge> <messageCost> <networkCharge> <discountRate>
-```
-Toma en cuenta que el identificador del operador será el orden de creación. Por ejemplo, el primer operador creado debe tener Id 0 y debe colocarse en la posición 0 del vector.
-
-##### <span style="color: rgb(26, 99, 169);">**3. Un cliente puede hablar con otro cliente**</span>
-Esta línea contiene un 3 seguido del id del primer cliente (origen), el id del segundo cliente (destino) y el tiempo de la llamada.
+##### <span style="color: rgb(26, 99, 169);">**4. Cargar un contenedor a una nave**</span>
+Esta línea contiene un 4, seguido del id de la nave y el id del contenedor.
 
 ```
-3 <idCustomer1> <idCustomer2> <time>
-```
-##### <span style="color: rgb(26, 99, 169);">**4. Un cliente envía un mensaje a otro cliente**</span>
-Esta línea contiene un 4 seguido del id del primer cliente (origen), el id del segundo cliente (destino) y la cantidad de mensajes enviados.
-
-```
-4 <idCustomer1> <idCustomer2> <quantity>
+4 <idShip> <idContainer>
 ```
 
-##### <span style="color: rgb(26, 99, 169);">**5. Un cliente se conecta a Internet**</span>
-Esta línea contiene un 5 seguido del id del cliente y la cantidad de Internet utilizada en GB.
+##### <span style="color: rgb(26, 99, 169);">**5. Descargar un contenedor de una nave**</span>
+Esta línea contiene un 5, seguido del id de la nave y el id del contenedor.
 
 ```
-5 <idCustomer> <amount>
+5 <idShip> <idContainer>
 ```
 
-##### <span style="color: rgb(26, 99, 169);">**6. Un cliente paga sus facturas**</span>
-Esta línea contiene un 6 seguido del id del cliente y la cantidad de dinero que el cliente quiere pagar.
+##### <span style="color: rgb(26, 99, 169);">**6. Un nave viaja del puerto actual a otro**</span>
+Esta línea contiene un 6, seguido del id de la nave y el id del puerto.
 
 ```
-6 <idCustomer> <amount>
+6 <idShip> <idPort>
 ```
-##### <span style="color: rgb(26, 99, 169);">**7. Un cliente cambia de operador**</span>
-Esta línea contiene un 7 seguido del id del cliente y el id del operador.
+
+##### <span style="color: rgb(26, 99, 169);">**7. Una nave carga combustible**</span>
+Esta línea contiene un 7, seguido del id de la nave y la cantidad de combustible.
 
 ```
-7 <idCustomer> <idOperator>
+7 <idShip> <amount>
 ```
-##### <span style="color: rgb(26, 99, 169);">**8. Un cliente cambia su límite de factura**</span>
-Esta línea contiene un 8 seguido del id del cliente y el nuevo límite.
 
-```
-8 <idCustomer> <amount>
-```
 #### <span style="color: rgb(26, 99, 169);">**Salida**</span>
 Debes calcular lo siguiente e imprimirlo en el archivo de salida.
 
-Por cada operador, debes imprimir la cantidad de tiempo de llamadas que atiendieron, la cantidad de mensajes enviados a través de ese operator y la cantidad de uso de Internet en términos de GB proporcionados por el operador.
-```
-Operator <id>:  <talkingTime> <totalMessages> <totalMBs>
-```
+Debés imprimir la información relacionada con cada puerto (contenedores y barcos).
 
-Por cada cliente, debes imprimir cuánto dindero ha gastado en pagar su factura y la deuda actual al final de la simulación.
-```
-Customer <id>:  <totalMoneySpend> <currentDebt>
-```
-Posteriormente, desplegar el id del cliente que más habla y la cantidad de tiempo en minutos (si dos clientes son iguales, debes imprimir el que tiene una id más pequeña).
-```
-<name of the customer>:  <total talking time>
-```
-A continuación, desplegar el id del cliente que más mensajes envía y la cantidad de mensajes enviados (si dos clientes son iguales, debes imprimir el que tiene una id más pequeña).
-```
-<name of the customer>:  <number of messages>
-```
-En seguida, desplegar el id del cliente que más se conecta a Internet y la cantidad de GBs (si dos clientes son iguales, debes imprimir el que tiene una id más pequeña).
-```
-<name of the customer>: <connection amount>
-```
 Por último, deberás eliminar todos los apuntadores que existan y cerrar los archivos de entrada y salida.
