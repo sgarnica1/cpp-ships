@@ -3,7 +3,7 @@ Port 0: (100.00, 200.00)
 	Heavy Containers: 
 	Refrigerated Containers: 22 
 	Liquid Containers: 
-	Ship 1: 59375.00
+	Ship 1: 3475612.50
 		Light Containers: 15 16 17 18 
 		Heavy Containers: 
 		Refrigerated Containers: 
@@ -19,7 +19,7 @@ Port 1: (130.00, 240.00)
 	Heavy Containers: 12 
 	Refrigerated Containers: 
 	Liquid Containers: 4 
-	Ship 0: 207250.00
+	Ship 0: 3211000.00
 		Light Containers: 1 2 
 		Heavy Containers: 0 
 		Refrigerated Containers: 3 
