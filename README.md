@@ -112,7 +112,7 @@ La clase cuenta con los siguientes métodos:
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
 * `double getDistance(Port *port)`: Regresa la distancia euclidiana entre nuestro puerto y `port`.
 * `void incomingShip(SimpleShip *ship)`: Si la nave no se encuentra ya en el puerto, la agrega a la lista de naves que actualmente están en el puerto.
-* `void outgoingShip(SimpleShip *ship)`: Remueva la nave de la lista de naves que actualmente están en el puerto. Además, si la nave no se encuentra en la lista de naves que han estado en el puerto, la agrega.
+* `void outgoingShip(SimpleShip *ship)`: Sólo se debe ejecutar si la nave se encuentra en el puerto. Remueva la nave de la lista de naves que actualmente están en el puerto y, si la nave no se encuentra en la lista de naves que han estado en el puerto, la agrega.
 * `bool contains(Container *container)`: Regresa `true`, si el contenedor se encuentra en el puerto.
 * `std::string toString() const`: Regresa un string con el siguiente formato: "Port #id : (x, y)", en seguido la lista de contendores lígeros, pesados, refrigerados y líquidos que hay en el puerto. A continuación, despliega las naves que se encuentra en el puerto (**VER LOS EJEMPLOS DE SALIDA**).
 
