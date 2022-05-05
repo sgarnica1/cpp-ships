@@ -28,12 +28,12 @@ Ten en cuenta que no hay ninguna interacción con el usuario durante la ejecuci�
 Ten en cuenta que habrá varias clases. Por lo tanto, trabajarás con varios archivos cabecera (o header). Los nombres de las variables de instancia y métodos se proporcionarán en este documento, así como en el encabezado de la clase que se encuentra en cada archivo cabecera. Aunque esto no significa que no puedas agregar métodos o campos adicionales.
 
 ### <span style="color: rgb(26, 99, 169);">**Clases**</span>
-Existen 5 clases interactuando entre sí en este proyecto:
+Existen 8 clases interactuando entre sí en este proyecto:
 * `Container`.
-* `LightContainer` (derivado de Container)
-* `HeavyContainer` (derivado de Container)
-* `RefrigeratedContainer` (derivado de HeavyContainer)
-* `LiquidContainer` (derivado de HeavyContainer)
+* `LightContainer` (derivado de `Container`)
+* `HeavyContainer` (derivado de `Container`)
+* `RefrigeratedContainer` (derivado de `HeavyContainer`)
+* `LiquidContainer` (derivado de `HeavyContainer`)
 * `SimpleShip`.
 * `Port`.
 * `Ship`.
