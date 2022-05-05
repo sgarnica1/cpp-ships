@@ -58,29 +58,29 @@ La clase cuenta con los siguientes métodos:
 
 #### <span style="color: rgb(26, 99, 169);">**Light**</span>
 La clase `Light`, derivada de `Container`, no tiene ninguna variable de instancia propia. Sin embargo, cuenta con los siguientes métodos:
-* Constructor con dos parámetro (identificador, peso). Invoca al consntructor de la clase superior, indicando el tipo de contenedor correcto.
-* Constructor de copia. Invoca al consntructor de la clase superior.
+* Constructor con dos parámetro (identificador y peso). Invoca al constructor de la clase superior, indicando el tipo de contenedor correcto.
+* Constructor de copia. Invoca al constructor de la clase superior.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
 * `double getConsumption() const`: El consumo de combustible por llevar este tipo de contenedor es 2.5 veces el peso del mismo.
 
 #### <span style="color: rgb(26, 99, 169);">**Heavy**</span>
 La clase `Heavy`, derivada de `Container`, no tiene ninguna variable de instancia propia. Sin embargo, cuenta con los siguientes métodos:
-* Constructor con dos parámetro (identificador, peso). Invoca al consntructor de la clase superior, indicando el tipo de contenedor correcto.
-* Constructor de copia. Invoca al consntructor de la clase superior.
+* Constructor con dos parámetro (identificador, peso). Invoca al constructor de la clase superior, indicando el tipo de contenedor correcto.
+* Constructor de copia. Invoca al constructor de la clase superior.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
 * `double getConsumption() const`: El consumo de combustible por llevar este tipo de contenedor es 3 veces el peso del mismo.
 
 #### <span style="color: rgb(26, 99, 169);">**Liquid**</span>
 La clase `Liquid`, derivada de `Heavy`, no tiene ninguna variable de instancia propia. Sin embargo, cuenta con los siguientes métodos:
-* Constructor con dos parámetro (identificador, peso). Invoca al consntructor de la clase superior, indicando el tipo de contenedor correcto.
-* Constructor de copia. Invoca al consntructor de la clase superior.
+* Constructor con dos parámetro (identificador, peso). Invoca al constructor de la clase superior, indicando el tipo de contenedor correcto.
+* Constructor de copia. Invoca al constructor de la clase superior.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
 * `double getConsumption() const`: El consumo de combustible por llevar este tipo de contenedor es 4 veces el peso del mismo.
 
 #### <span style="color: rgb(26, 99, 169);">**Refrigerated**</span>
 La clase `Refrigerated`, derivada de `Heavy`, no tiene ninguna variable de instancia propia. Sin embargo, cuenta con los siguientes métodos:
-* Constructor con dos parámetro (identificador, peso). Invoca al consntructor de la clase superior, indicando el tipo de contenedor correcto.
-* Constructor de copia. Invoca al consntructor de la clase superior.
+* Constructor con dos parámetro (identificador, peso). Invoca al constructor de la clase superior, indicando el tipo de contenedor correcto.
+* Constructor de copia. Invoca al constructor de la clase superior.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
 * `double getConsumption() const`: El consumo de combustible por llevar este tipo de contenedor es 5 veces el peso del mismo.
 
