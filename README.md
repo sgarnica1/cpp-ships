@@ -152,7 +152,7 @@ Vas a leer el archivo de entrada elemento por elemento.
 
 La primera línea tiene cuatro números enteros, `C`, `S`, `P` y `N`. El número `C` represnta el número de contenedores que estarán en la simulación. El segundo número, `S`, indica el número de naves en la simulación. El tercer número, `P`, indica el número de puertos en la simulación. Y, por último, `N`, representa el número de eventos a simular.
 
-Las siguientes líneas `N` serán algunas de las siguientes operaciones:
+Las siguientes `N` líneas serán algunas de las siguientes operaciones:
 1. Creando un contenedor.
 2. Creando una nave.
 3. Creando un puerto.
