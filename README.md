@@ -145,14 +145,14 @@ En el archivo *main.cpp* se realizarán las operaciones generales de entrada y s
 
 Las operaciones se detallan más adelante. El nombre de los archivos de entrada y salida se darán como argumentos del programa a través de la línea de comandos. Si el archivo de entrada no existe, el programa termina.
 
-Deberás manejar tres vectores, uno para apuntadores a objetos `Container`, otro para apuntadores de objetos `Port` y otro para apuntadores a objetos `Ship`. **Adicionalmente, deberás considerar variables que indiquen la cantidad de contenedores, puertos y naves creadas, ya el valor de estas variables se utilizarán como id de los objetos creados. Por lo mismo, deben ser inicializas a 0.**
+Deberás manejar tres vectores, uno para apuntadores a objetos `Container`, otro para apuntadores de objetos `Port` y otro para apuntadores a objetos `Ship`. 
 
 #### <span style="color: rgb(26, 99, 169);">**Entrada**</span>
 Vas a leer el archivo de entrada elemento por elemento.
 
 La primera línea tiene cuatro números enteros, `C`, `S`, `P` y `N`. El número `C` represnta el número de contenedores que estarán en la simulación. El segundo número, `S`, indica el número de naves en la simulación. El tercer número, `P`, indica el número de puertos en la simulación. Y, por último, `N`, representa el número de eventos a simular.
 
-Las siguientes línea `N` serán algunas de las siguientes operaciones:
+Las siguientes líneas `N` serán algunas de las siguientes operaciones:
 1. Creando un contenedor.
 2. Creando una nave.
 3. Creando un puerto.
