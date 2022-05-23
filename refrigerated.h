@@ -17,4 +17,13 @@ public:
   double getConsumption() const;
 };
 
+RefrigeratedContainer::RefrigeratedContainer(int id, int weight) : HeavyContainer(id, weight, REFRIGERATED) {}
+
+RefrigeratedContainer::RefrigeratedContainer(const RefrigeratedContainer &container) : HeavyContainer(container) {}
+
+double RefrigeratedContainer::getConsumption() const
+{
+  return (weight * 5);
+}
+
 #endif

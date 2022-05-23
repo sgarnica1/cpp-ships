@@ -12,7 +12,8 @@ typedef enum
   LIGHT,
   HEAVY,
   REFRIGERATED,
-  LIQUID
+  LIQUID,
+  UNDEFINED
 } ContainerType;
 
 class Container
