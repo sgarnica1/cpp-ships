@@ -28,6 +28,54 @@ int main(int argc, char *argv[])
 
   // TO DO
 
+  int nContainers, nShips, nPorts, nEvents, eventType;
+  inputFile >> nContainers >> nShips >> nPorts >> nEvents;
+  string line;
+
+  for (int i = 0; i < nEvents; i++)
+  {
+    inputFile >> eventType;
+
+    char type;
+    int idPort, idShip, idContainer;
+    int weight, totalWeight, maxNumberOfAllContainers, maxNumberOfHeavyContainers, maxNumberOfRefrigeratedContainers, maxNumberOfLiquidContainers;
+    double x, y, fuel, fuelConsumptionPerKM;
+
+    switch (eventType)
+    {
+    case 1:
+      inputFile >> idPort >> weight >> type;
+      outputFile << idPort << " " << weight << " " << type << "\n";
+      break;
+    case 2:
+      inputFile >> idShip >> totalWeight >> maxNumberOfAllContainers >> maxNumberOfHeavyContainers >> maxNumberOfRefrigeratedContainers >> maxNumberOfLiquidContainers >> fuelConsumptionPerKM;
+      outputFile << idShip << " " << totalWeight << " " << maxNumberOfAllContainers << " " << maxNumberOfHeavyContainers << " " << maxNumberOfRefrigeratedContainers << " " << maxNumberOfLiquidContainers << " " << fuelConsumptionPerKM << "\n";
+      break;
+    case 3:
+      inputFile >> x >> y;
+      outputFile << x << " " << y << "\n";
+      break;
+    case 4:
+      inputFile >> idShip >> idContainer;
+      outputFile << idShip << " " << idContainer << "\n";
+      break;
+    case 5:
+      inputFile >> idShip >> idContainer;
+      outputFile << idShip << " " << idContainer << "\n";
+      break;
+    case 6:
+      inputFile >> idShip >> idPort;
+      outputFile << idShip << " " << idPort << "\n";
+      break;
+    case 7:
+      inputFile >> idShip >> fuel;
+      outputFile << idShip << " " << fuel << "\n";
+      break;
+
+    default:
+      break;
+    }
+  }
 
   inputFile.close();
   outputFile.close();

@@ -19,7 +19,8 @@
 #include "simpleship.h"
 #include "port.h"
 
-class Ship : public SimpleShip {
+class Ship : public SimpleShip
+{
 private:
   int currentWeight, totalWeight;
   int currentNumberOfAllContainers, maxNumberOfAllContainers;
@@ -28,14 +29,14 @@ private:
   int currentNumberOfLiquidContainers, maxNumberOfLiquidContainers;
   double fuel, fuelConsumptionPerKM;
   Port *currentPort;
-  std::list<Container*> containers;
+  std::list<Container *> containers;
 
-  bool contains(Container*);
-  void remove(Container*);
+  bool contains(Container *);
+  void remove(Container *);
 
 public:
-  Ship(int, Port*, int, int, int, int, int, double);
-  Ship(const Ship&);
+  Ship(int, Port *, int, int, int, int, int, double);
+  Ship(const Ship &);
 
   int getId() const;
   int getCurrentWeight() const;
@@ -50,15 +51,285 @@ public:
   int getMaxNumberOfLiquidContainers() const;
   double getFuel() const;
   double getFuelConsumptionPerKM() const;
-  Port* getCurrentPort() const;
-  std::list<Container*> getCurrentContainers() const;
+  Port *getCurrentPort() const;
+  std::list<Container *> getCurrentContainers() const;
 
-  bool sailTo(Port*);
+  bool sailTo(Port *);
   void reFuel(double);
-  bool load(Container*);
-  bool unLoad(Container*);
+  bool load(Container *);
+  bool unLoad(Container *);
 
   std::string toString() const;
 };
+
+Ship::Ship(int id, Port *currentPort, int totalWeight, int maxNumberOfAllContainers, int maxNumberOfHeavyContainers, int maxNumberOfRefrigeratedContainers, int maxNumberOfLiquidContainers, double fuelConsumptionPerKM) : SimpleShip(id), currentPort(currentPort), totalWeight(totalWeight), maxNumberOfAllContainers(maxNumberOfAllContainers), maxNumberOfHeavyContainers(maxNumberOfHeavyContainers), maxNumberOfRefrigeratedContainers(maxNumberOfRefrigeratedContainers), maxNumberOfLiquidContainers(maxNumberOfLiquidContainers), fuelConsumptionPerKM(fuelConsumptionPerKM)
+{
+  this->currentWeight = 0;
+  this->currentNumberOfAllContainers = 0;
+  this->currentNumberOfHeavyContainers = 0;
+  this->currentNumberOfLiquidContainers = 0;
+  this->currentNumberOfRefrigeratedContainers = 0;
+  this->fuel = 0;
+}
+
+Ship::Ship(const Ship &ship) : SimpleShip(ship), currentPort(ship.currentPort), totalWeight(ship.totalWeight), maxNumberOfAllContainers(ship.maxNumberOfAllContainers), maxNumberOfHeavyContainers(ship.maxNumberOfHeavyContainers), maxNumberOfRefrigeratedContainers(ship.maxNumberOfRefrigeratedContainers), maxNumberOfLiquidContainers(ship.maxNumberOfLiquidContainers), fuelConsumptionPerKM(ship.fuelConsumptionPerKM)
+{
+  this->currentWeight = 0;
+  this->currentNumberOfAllContainers = 0;
+  this->currentNumberOfHeavyContainers = 0;
+  this->currentNumberOfLiquidContainers = 0;
+  this->currentNumberOfRefrigeratedContainers = 0;
+  this->fuel = 0;
+}
+
+int Ship::getId() const
+{
+  return this->id;
+}
+
+int Ship::getCurrentWeight() const
+{
+  return this->currentWeight;
+}
+
+int Ship::getTotalWeight() const
+{
+  return this->totalWeight;
+}
+
+int Ship::getCurrentNumberOfAllContainers() const
+{
+  return this->currentNumberOfAllContainers;
+}
+
+int Ship::getMaxNumberOfAllContainers() const
+{
+  return this->maxNumberOfAllContainers;
+}
+
+int Ship::getCurrentNumberOfHeavyContainers() const
+{
+  return this->currentNumberOfHeavyContainers;
+}
+
+int Ship::getMaxNumberOfHeavyContainers() const
+{
+  return this->maxNumberOfHeavyContainers;
+}
+
+int Ship::getCurrentNumberOfRefrigeratedContainers() const
+{
+  return this->currentNumberOfRefrigeratedContainers;
+}
+
+int Ship::getMaxNumberOfRefrigeratedContainers() const
+{
+  return this->maxNumberOfRefrigeratedContainers;
+}
+
+int Ship::getCurrentNumberOfLiquidContainers() const
+{
+  return this->currentNumberOfLiquidContainers;
+}
+
+int Ship::getMaxNumberOfLiquidContainers() const
+{
+  return this->maxNumberOfLiquidContainers;
+}
+
+double Ship::getFuel() const
+{
+  return this->fuel;
+}
+
+double Ship::getFuelConsumptionPerKM() const
+{
+  return this->fuelConsumptionPerKM;
+}
+
+Port *Ship::getCurrentPort() const
+{
+  return this->currentPort;
+}
+
+std::list<Container *> Ship::getCurrentContainers() const
+{
+  return containers;
+}
+
+bool Ship::sailTo(Port *port)
+{
+  double containerFuelConsumption = 0;
+  double totalFuelRequired = 0;
+  double distance = this->currentPort->getDistance(port);
+
+  for (Container *container : containers)
+  {
+    containerFuelConsumption += (*container).getConsumption();
+  }
+
+  totalFuelRequired = (fuelConsumptionPerKM * distance) + containerFuelConsumption;
+
+  if (totalFuelRequired < fuel)
+  {
+    fuel -= totalFuelRequired;
+    this->currentPort->outgoingShip(this);
+    port->incomingShip(this);
+    this->currentPort = port;
+    return true;
+  }
+
+  return false;
+}
+
+void Ship::reFuel(double fuelQuantity)
+{
+  if (fuelQuantity > 0)
+  {
+    this->fuel += fuelQuantity;
+  }
+}
+
+bool Ship::load(Container *c)
+{
+  bool spaceAvailabe = currentNumberOfAllContainers < maxNumberOfAllContainers ? true : false;
+  bool weightAvailable = currentWeight + c->getWeight() < totalWeight ? true : false;
+  bool containerExists = false;
+  bool containerInPort = false;
+
+  for (Container *container : currentPort->getContainers())
+  {
+    if (container->getId() == c->getId())
+    {
+      containerInPort = true;
+    }
+  }
+
+  if (!containerInPort)
+    return false;
+
+  
+  for (Container *container : containers)
+  {
+    if (container->getId() == c->getId())
+    {
+      containerExists = true;
+    }
+  }
+
+  if (containerExists || !spaceAvailabe || !weightAvailable)
+  {
+    return false;
+  }
+
+  if (c->getType() == HEAVY && currentNumberOfHeavyContainers + 1 > maxNumberOfHeavyContainers)
+  {
+    return false;
+  }
+
+  if (c->getType() == REFRIGERATED && currentNumberOfRefrigeratedContainers + 1 > maxNumberOfRefrigeratedContainers)
+  {
+    return false;
+  }
+
+  if (c->getType() == LIQUID && currentNumberOfLiquidContainers + 1 > maxNumberOfLiquidContainers)
+  {
+    return false;
+  }
+
+  currentPort->remove(c);
+  containers.insert(containers.end(), c);
+  currentNumberOfAllContainers += 1;
+  currentWeight += c->getWeight();
+
+  if (c->getType() == HEAVY)
+  {
+    currentNumberOfHeavyContainers += 1;
+  }
+
+  if (c->getType() == LIQUID)
+  {
+    currentNumberOfLiquidContainers += 1;
+  }
+
+  if (c->getType() == REFRIGERATED)
+  {
+    currentNumberOfRefrigeratedContainers += 1;
+  }
+
+  if (c->getType() == LIGHT)
+  {
+    return false;
+  }
+
+  return true;
+}
+
+bool Ship::unLoad(Container *c)
+{
+  if (c->getType() == LIGHT)
+  {
+    return false;
+  }
+
+  for (const Container *container : containers)
+  {
+    if (container->getId() == c->getId())
+    {
+      containers.remove(c);
+      currentPort->add(c);
+      currentNumberOfAllContainers -= 1;
+
+      if (c->getType() == HEAVY)
+      {
+        currentNumberOfHeavyContainers -= 1;
+      }
+
+      if (c->getType() == REFRIGERATED)
+      {
+        currentNumberOfRefrigeratedContainers -= 1;
+      }
+
+      if (c->getType() == LIQUID)
+      {
+        currentNumberOfLiquidContainers -= 1;
+      }
+
+      this->currentWeight -= c->getWeight();
+
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool Ship::contains(Container *container)
+{
+  std::list<Container *>::iterator itr;
+  for (itr = containers.begin(); itr != containers.end(); itr++)
+  {
+    if (*itr == container)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+void Ship::remove(Container *container)
+{
+  containers.remove(container);
+}
+
+std::string Ship::toString() const
+{
+  std::stringstream aux;
+
+  aux << "h";
+
+  return aux.str();
+}
 
 #endif

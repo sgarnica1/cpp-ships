@@ -41,8 +41,16 @@ public:
 Container::Container(int id, int weight, ContainerType type)
 {
   this->id = id;
-  this->weight = weight;
   this->type = type;
+
+  if (weight < 0)
+  {
+    this->weight = 0;
+  }
+  else
+  {
+    this->weight = weight;
+  }
 }
 
 Container::Container(const Container &container)
@@ -69,46 +77,54 @@ int Container::getWeight() const
 
 bool Container::operator==(const Container *container)
 {
-  if (this->id != container->getId())
-  {
+  if (this->id != container->id)
     return false;
-  } else if (this->weight != container->getWeight()) {
+
+  if (this->weight != container->weight)
     return false;
-  } else if (this->type != container->getType()) {
+
+  if (this->type != container->type)
     return false;
-  } else {
-    return true;
-  }
-}
-bool Container::operator==(const Container &container) {
-  if (this->id != container.getId())
-  {
-    return false;
-  }
-  else if (this->weight != container.getWeight())
-  {
-    return false;
-  }
-  else if (this->type != container.getType())
-  {
-    return false;
-  }
-  else
-  {
-    return true;
-  }
-}
-bool Container::operator<(const Container *container) {
-  if (this->type == container->getType()) {
-    return this->id < container->getId() ? true : false;
-  } 
-}
-bool Container::operator<(const Container &container) {
-  if (this->type == container.getType())
-  {
-    return this->id < container.getId() ? true : false;
-  }
+
+  return true;
 }
 
+bool Container::operator==(const Container &container)
+{
+  if (this->id != container.id)
+    return false;
+
+  if (this->weight != container.weight)
+    return false;
+
+  if (this->type != container.type)
+    return false;
+
+  return true;
+}
+
+bool Container::operator<(const Container *container)
+{
+  if (this->type != container->type)
+  {
+    return this->type < container->type ? true : false;
+  }
+
+  return this->id < container->id ? true : false;
+
+  return false;
+}
+
+bool Container::operator<(const Container &container)
+{
+  if (this->type != container.type)
+  {
+    return this->type < container.type ? true : false;
+  }
+
+  return this->id < container.id ? true : false;
+
+  return false;
+}
 
 #endif
