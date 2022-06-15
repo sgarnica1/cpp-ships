@@ -105,26 +105,12 @@ bool Container::operator==(const Container &container)
 
 bool Container::operator<(const Container *container)
 {
-  if (this->type != container->type)
-  {
-    return this->type < container->type ? true : false;
-  }
-
   return this->id < container->id ? true : false;
-
-  return false;
 }
 
 bool Container::operator<(const Container &container)
 {
-  if (this->type != container.type)
-  {
-    return this->type < container.type ? true : false;
-  }
-
   return this->id < container.id ? true : false;
-
-  return false;
 }
 
 #endif

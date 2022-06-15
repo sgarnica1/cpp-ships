@@ -401,9 +401,6 @@ Port 48: (70.43, 60.07)
 	Ship 46: 7332965.51
 	Ship 81: 6621366.24
 		Light Containers: 107 
-		Heavy Containers: 
-		Refrigerated Containers: 
-		Liquid Containers: 
 
 Port 49: (87.26, 89.79)
 	Light Containers: 
@@ -421,7 +418,5 @@ Port 50: (49.74, 37.54)
 	Liquid Containers: 314 
 	Ship 28: 5804845.57
 		Light Containers: 397 
-		Heavy Containers: 
-		Refrigerated Containers: 
-		Liquid Containers: 
+
 

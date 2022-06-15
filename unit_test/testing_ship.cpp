@@ -6,7 +6,7 @@
 //							the Ship class must pass.
 // IMPORTANT: This file must be used BEFORE the
 // testing of Ship class.
-// To compile: g++ -std=c++11 testing_ship2.cpp -o app
+// To compile: g++ -std=c++11 testing_ship.cpp -o app
 // To execute: ./app
 // =========================================================
 #define CATCH_CONFIG_MAIN

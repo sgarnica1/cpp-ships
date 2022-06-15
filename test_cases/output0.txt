@@ -24,4 +24,3 @@ Port 1: (120.60, 250.00)
 		Heavy Containers: 
 		Refrigerated Containers: 22 
 		Liquid Containers: 
-
